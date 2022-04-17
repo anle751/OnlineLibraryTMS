@@ -4,7 +4,7 @@
 
 Используемые в проекте технологии:
 1. Spring Boot
-2. Spring MVC
+2. Spring Boot MVC
 3. Spring Security
 4. Spring Data JPA
 5. Hibernate

@@ -5,6 +5,7 @@ import com.tms.web.entities.library.Chapter;
 import com.tms.web.services.busines.AddNewChapterService;
 import com.tms.web.services.entities.BookService;
 import com.tms.web.services.entities.ChapterService;
+import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

@@ -45,7 +45,9 @@ public class ParseFB2BookServiceImpl implements ParseFB2BookService {
         Annotation annotationFB2 = fb2.getDescription().getTitleInfo().getAnnotation();
         String descriptionBook = null;
         if (Objects.nonNull(annotationFB2)) {
-            descriptionBook = annotationFB2.getElements().stream().map((s) -> s.getText()).reduce("", String::concat);
+            descriptionBook = annotationFB2.getElements().stream()
+                    .map(Element::getText)
+                    .collect(Collectors.joining());
         }
 
         ArrayList<Section> sectionsFB2 = fb2.getBody().getSections();

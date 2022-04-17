@@ -9,6 +9,10 @@
               <option name="containerPort" value="8090" />
               <option name="hostPort" value="8091" />
             </DockerPortBindingImpl>
+            <DockerPortBindingImpl>
+              <option name="containerPort" value="8091" />
+              <option name="hostPort" value="8092" />
+            </DockerPortBindingImpl>
           </list>
         </option>
         <option name="sourceFilePath" value="Docker" />

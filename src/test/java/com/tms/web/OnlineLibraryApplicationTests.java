@@ -1,13 +1,14 @@
-package com.example.onlinelibrary;
+package com.tms.web;
 
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
 class OnlineLibraryApplicationTests {
 
-//    @Test
-//    void contextLoads() {
-//    }
+    @Test
+    void contextLoads() {
+    }
 
 }
