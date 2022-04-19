@@ -8,7 +8,7 @@ import java.util.List;
 public interface BookService {
     public Book get(Long id);
     public Book save(Book book);
-    public Boolean update(Long id, Book book);
+    public Book update(Long id, Book book);
 //    public List<Book> getByNameAndAuthor()
     public List<Book> getAll();
 }

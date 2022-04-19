@@ -28,31 +28,7 @@ class BookServiceImplTest {
     @Test
     void get() {
         //given
-        Book testBook = Book.builder()
-                .name("testName")
-                .id(1L)
-                .chapterList(new ArrayList<>())
-                .description("testDescription")
-                .genres(List.of(
-                                Genre.builder()
-                                        .id(1L)
-                                        .name("genreName1")
-                                        .build(),
-                                Genre.builder()
-                                        .id(2L)
-                                        .name("genreName2")
-                                        .build()
-                        )
-                )
-                .author(
-                        Author.builder()
-                                .firstName("testFirstName")
-                                .secName("testSecName")
-                                .books(new ArrayList<>())
-                                .description("testDescription")
-                                .id(1L)
-                                .build())
-                .build();
+        Book testBook = Book.builder().name("testName").id(1L).chapterList(new ArrayList<>()).description("testDescription").genres(List.of(Genre.builder().id(1L).name("genreName1").build(), Genre.builder().id(2L).name("genreName2").build())).author(Author.builder().firstName("testFirstName").secName("testSecName").books(new ArrayList<>()).description("testDescription").id(1L).build()).build();
         when(bookRepository.findById(Mockito.anyLong())).thenReturn(Optional.of(testBook));
 
         //when
@@ -73,45 +49,66 @@ class BookServiceImplTest {
 
     @Test
     void saveNotExistBook() {
-//        //given
-//        when(bookRepository.findAllByNameAndAuthorId(Mockito.anyString(), Mockito.anyLong()))
-//                .thenReturn(new ArrayList<>());
-//        Book book = Book.builder()
-//                .author(
-//                        Author.builder()
-//                                .id(1L)
-//                                .build())
-//                .name("test").build();
-//        //when
-//        Book result = bookService.save(book);
-//
-//        //result
-//        Assertions.assertEquals(true, result);
-    }
-    @Test
-    void saveExistBook() {
-//        //given
-//
-//        when(bookRepository.findAllByNameAndAuthorId(Mockito.anyString(), Mockito.anyLong()))
-//                .thenReturn(List.of(new Book()));
-//        Book book = Book.builder()
-//                .author(
-//                        Author.builder()
-//                                .id(1L)
-//                                .build())
-//                .name("test").build();
-//        //when
-//        Boolean result = bookService.save(book);
-//
-//        //result
-//        Assertions.assertEquals(false, result);
+        //given
+        when(bookRepository.findAllByNameAndAuthorId(Mockito.anyString(), Mockito.anyLong())).thenReturn(new ArrayList<>());
+        when(bookRepository.save(Mockito.any())).thenReturn(new Book());
+        Book book = Book.builder().author(Author.builder().id(1L).build()).name("test").build();
+        //when
+        Book bookSaved = bookService.save(book);
+
+        //result
+        Assertions.assertNotNull(bookSaved);
     }
 
     @Test
-    void update() {
+    void saveExistBook() {
+        //given
+
+        when(bookRepository.findAllByNameAndAuthorId(Mockito.anyString(), Mockito.anyLong())).thenReturn(List.of(new Book()));
+        Book book = Book.builder().author(Author.builder().id(1L).build()).name("test").build();
+        //when
+        Book savedBook = bookService.save(book);
+
+        //result
+        Assertions.assertNull(savedBook);
+    }
+
+    @Test
+    void updateExistBook() {
+        //given
+        when(bookRepository.getById(Mockito.anyLong())).thenReturn(Book.builder().id(1L).name("test").description("testDescription").build());
+        Book bookTest = Book.builder().author(Author.builder().id(1L).build()).name("test1").description("testDescription1").build();
+
+        //when
+        Book update = bookService.update(1L, bookTest);
+
+        //result
+        Assertions.assertNotNull(update);
+        Assertions.assertEquals("test1", update.getName());
+        Assertions.assertEquals("testDescription1", update.getDescription());
+    }
+
+    @Test
+    void updateNotExistBook() {
+        //given
+        when(bookRepository.getById(Mockito.anyLong())).thenReturn(null);
+        Book bookTest = Book.builder().author(Author.builder().id(1L).build()).name("test1").description("testDescription1").build();
+
+        //when
+        Book update = bookService.update(1L, bookTest);
+
+        //result
+        Assertions.assertNull(update);
     }
 
     @Test
     void getAll() {
+        //given
+        when(bookRepository.findAll()).thenReturn(List.of(new Book(), new Book()));
+        //when
+        List<Book> all = bookService.getAll();
+        int size = all.size();
+        //result
+        Assertions.assertEquals(2, size);
     }
 }

@@ -10,6 +10,7 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Objects;
 
 @Service
 public class BookServiceImpl implements BookService {
@@ -36,16 +37,18 @@ public class BookServiceImpl implements BookService {
     @Override
     @Modifying
     @Transactional(propagation = Propagation.REQUIRED)
-    public Boolean update(Long id, Book book) {
-        Book byId = bookRepository.getById(id);
-        if (byId.getId() != null) {
-            byId.setAuthor(book.getAuthor());
-            byId.setGenres(book.getGenres());
-            byId.setChapterList(book.getChapterList());
-            return true;
-        } else {
-            return false;
+    public Book update(Long id, Book book) {
+        Book bookDB = bookRepository.getById(id);
+        if (Objects.nonNull(bookDB)){
+            if (bookDB.getId() != null) {
+                bookDB.setName(book.getName());
+                bookDB.setDescription(book.getDescription());
+                bookDB.setAuthor(book.getAuthor());
+                bookDB.setGenres(book.getGenres());
+                bookDB.setChapterList(book.getChapterList());
+            }
         }
+        return bookDB;
     }
 
     @Override
