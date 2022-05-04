@@ -4,11 +4,13 @@ import com.tms.web.entities.security.User.User;
 import com.tms.web.services.busines.ChangeUserInfoService;
 import com.tms.web.services.busines.GetUserInfoService;
 import com.tms.web.services.entities.UserService;
+import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
+@Log4j2
 public class ChangeUserInfoServiceImpl implements ChangeUserInfoService {
     @Autowired
     private UserService userService;
@@ -23,7 +25,7 @@ public class ChangeUserInfoServiceImpl implements ChangeUserInfoService {
             userService.updateNickName(userId, newNickName);
             return true;
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+            log.fatal("error change nickname" + e.getMessage());
             return false;
         }
     }
@@ -35,7 +37,7 @@ public class ChangeUserInfoServiceImpl implements ChangeUserInfoService {
             userService.updateNickName(userId, newNickName);
             return true;
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+            log.fatal("error change nickname" + e.getMessage());
             return false;
         }
     }
@@ -73,7 +75,7 @@ public class ChangeUserInfoServiceImpl implements ChangeUserInfoService {
                 return false;
             }
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+            log.fatal("error: change p");
             return false;
         }
     }

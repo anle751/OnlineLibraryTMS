@@ -44,4 +44,9 @@ public class AuthorServiceImpl implements AuthorService {
         return authorRepository.findByFirstNameAndSecName(firstName,secName);
     }
 
+    @Override
+    public Author findFirstByFirstNameAndSecName(String firstName, String secName) {
+        return authorRepository.findFirstByFirstNameAndSecName(firstName,secName);
+    }
+
 }

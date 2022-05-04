@@ -12,6 +12,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.Objects;
 
@@ -25,27 +26,26 @@ public class UserAccountController {
     private RegisterAuthorService registerAuthorService;
 
     @GetMapping
-    public String getUserAccountPage(Model model) {
+    public String getUserAccountPage(@RequestParam(value = "info",required = false) String info, Model model) {
         UserInfo userInfo = null;
         boolean isAuthor = false;
         userInfo = getUserInfoService.get();
         if (Objects.nonNull(userInfo)) {
             isAuthor = Objects.nonNull(userInfo.getAuthor());
         }
+        model.addAttribute("info",info);
         model.addAttribute("isAuthor", isAuthor);
         model.addAttribute("user", userInfo);
         return "userAccount";
     }
 
     @PostMapping("/registerAuthor")
-    public String registerAuthor(Author author, BindingResult bindingResult, Model model) {
+    public String registerAuthor(Author author, Model model) {
         UserInfo userInfo = null;
         boolean isAuthor = false;
         if (Objects.nonNull(author)) {
             userInfo = registerAuthorService.registerAuthor(author);
-            if (Objects.nonNull(userInfo.getAuthor())) {
-                isAuthor = true;
-            }
+            isAuthor = true;
         }
         model.addAttribute("isAuthor", isAuthor);
         model.addAttribute("user", userInfo);

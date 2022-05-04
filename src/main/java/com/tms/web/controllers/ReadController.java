@@ -9,9 +9,11 @@ import com.tms.web.services.entities.ChapterService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
 
@@ -34,25 +36,17 @@ public class ReadController {
         return "readPage";
     }
 
-    @PostMapping("/prev")
-    public String getBefore(@RequestParam(name = "bookId") Long bookId,
+    @PostMapping("/{direction}")
+    public String getText(@RequestParam(name = "bookId") Long bookId,
                             @RequestParam(name = "chapterId") Long chapterId,
+                            @PathVariable("direction") Boolean direction,
                             Model model) {
         Book book = bookService.get(bookId);
-        Chapter chapter = progressUserLibraryService.updateProgress(bookId, chapterId, false);
+        Chapter chapter = progressUserLibraryService.updateProgress(bookId, chapterId, direction);
         model = getReadModel(book, chapter, model);
         return "readPage";
     }
 
-    @PostMapping("/next")
-    public String getNext(@RequestParam(name = "bookId") Long bookId,
-                          @RequestParam(name = "chapterId") Long chapterId,
-                          Model model) {
-        Book book = bookService.get(bookId);
-        Chapter chapter = progressUserLibraryService.updateProgress(bookId, chapterId, true);
-        model = getReadModel(book, chapter, model);
-        return "readPage";
-    }
 
     private Model getReadModel(Book book, Chapter chapter, Model model) {
         List<Chapter> chapterList = book.getChapterList();

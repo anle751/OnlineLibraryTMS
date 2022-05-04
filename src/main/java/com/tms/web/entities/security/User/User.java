@@ -17,17 +17,18 @@ import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 
 @Builder
 @Data
-@NoArgsConstructor
 @AllArgsConstructor
 @Entity
 @Table(name = "security_users")
 public class User implements UserDetails {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
@@ -36,13 +37,13 @@ public class User implements UserDetails {
     @NotEmpty
     @NotBlank
     @NotNull
-    @Length(min = 3)
+    @Length(min = 3,max = 30)
     @Column(unique = true, updatable = false)
     private String username;
     @NotBlank
     @NotEmpty
     @NotNull
-    @Length(min = 3)
+    @Length(min = 3,max = 30)
     private String nickName;
     @OneToOne
     private Author author;
@@ -75,6 +76,15 @@ public class User implements UserDetails {
     private Date lastUpdate;
     @Version
     private Long version;
+
+    public User() {
+        accountNonExpired = true;
+        accountNonLocked = true;
+        credentialsNonExpired = true;
+        enabled = true;
+        userLibrary = new ArrayList<>();
+    }
+
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

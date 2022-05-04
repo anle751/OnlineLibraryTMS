@@ -3,6 +3,7 @@ package com.tms.web.controllers;
 import com.tms.web.entities.library.Author.Projections.AuthorInfo;
 import com.tms.web.services.busines.GetUserInfoService;
 import com.tms.web.services.entities.AuthorService;
+import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.Objects;
 
+@Log4j2
 @Controller
 @RequestMapping("/library/author")
 public class AuthorPageController {
@@ -28,7 +30,7 @@ public class AuthorPageController {
             longId = Long.valueOf(authorId);
             authorInfo = authorService.getAuthorInfo(longId);
         } catch (NumberFormatException nfe) {
-            System.out.println(nfe.getMessage());
+            log.warn(nfe.getMessage());
         }
         if (Objects.nonNull(authorInfo)) {
             model.addAttribute("author", authorInfo);

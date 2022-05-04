@@ -26,13 +26,6 @@
                             Info
                         </button>
                     </h2>
-<!--                    <h2 class="accordion-header" id="flush-headingSetting">-->
-<!--                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"-->
-<!--                                data-bs-target="#flush-collapseTwo" aria-expanded="false"-->
-<!--                                aria-controls="flush-collapseTwo" th:text="#{label.userAccount.settings}">-->
-<!--                            Settings-->
-<!--                        </button>-->
-<!--                    </h2>-->
 
                     <h2 class="accordion-header" id="flush-headingUserLibrary">
                         <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
@@ -359,6 +352,18 @@
                     </div>
 
 
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div th:if="${#request.getAttribute('info')!=null}">
+    <div class="container">
+        <div class="row p-1">
+            <div class="col-12 mx-auto">
+                <div class="alert alert-info" role="alert" th:text="${#request.getAttribute('info')}">
+                    alert
                 </div>
             </div>
         </div>

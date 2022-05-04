@@ -24,25 +24,26 @@
                      alt="...">
                 <div class="card-body w-100">
                     <form action="/register" method="post">
-                        <div class="input-group mb-3">
+                        <div class="input-group mt-1">
                             <span class="input-group-text w-25" id="inputGroupSelect01"
                                   th:text="#{label.loginPage.loginText}">Login:</span>
                             <input name="username" type="text" class="form-control w-75"
                                    placeholder="" th:placeholder="#{label.loginPage.loginPlaceholder}"
-                                   th:value="${#request.getAttribute('login')}"
                                    aria-label="Username" aria-describedby="basic-addon1">
+                            <!--                                   th:value="${#request.getAttribute('login')}"-->
                         </div>
                         <div th:text="${#request.getAttribute('username')}"></div>
-                        <div class="input-group mb-3">
+                        <div class="input-group mt-3">
                             <span class="input-group-text w-25" id="inputGroupSelect02"
                                   th:text="#{label.loginPage.nickNameText}">Login:</span>
                             <input name="nickName" type="text" class="form-control w-75"
                                    placeholder="" th:placeholder="#{label.loginPage.nickNamePlaceholder}"
-                                   th:value="${#request.getAttribute('nickName')}"
+
                                    aria-label="Username" aria-describedby="basic-addon1">
+                            <!--                                   th:value="${#request.getAttribute('nickName')}"-->
                         </div>
                         <div th:text="${#request.getAttribute('username')}"></div>
-                        <div class="input-group mb-3">
+                        <div class="input-group mt-3">
                             <span class="input-group-text w-25" id="inputGroupSelect03"
                                   th:text="#{label.loginPage.passwordText}">Password:</span>
                             <input name="password" type="password" class="form-control w-75"
@@ -52,7 +53,7 @@
 
                         <div th:text="${#request.getAttribute('password')}"></div>
                         <div th:text="${userExists}"></div>
-                        <button class="btn btn-primary w-100 mt-1" type="submit"
+                        <button class="btn btn-primary w-100 mt-2" type="submit"
                                 th:text="#{label.loginPage.registrationButtonText}">register
                         </button>
                     </form>
