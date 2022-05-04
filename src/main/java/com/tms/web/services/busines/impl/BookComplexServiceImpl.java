@@ -54,8 +54,7 @@ public class BookComplexServiceImpl implements BookComplexService {
                 if (Objects.nonNull(savedAuthor)) {
                     savedAuthor.setBooks(List.of(savedBook));
                 } else {
-                    Author author = authorService.findByFirstNameAndSecName(book.getAuthor().getFirstName(),
-                            book.getAuthor().getSecName()).get(0);
+                    Author author =authorService.findFirstByFirstNameAndSecName(book.getAuthor().getFirstName(),book.getAuthor().getSecName());
                     author.getBooks().add(book);
                 }
 

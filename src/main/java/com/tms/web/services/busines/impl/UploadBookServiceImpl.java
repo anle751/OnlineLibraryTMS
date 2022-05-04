@@ -2,6 +2,7 @@ package com.tms.web.services.busines.impl;
 
 import com.kursx.parser.fb2.FictionBook;
 import com.tms.web.entities.library.Book;
+import com.tms.web.exceptions.UploadFileException;
 import com.tms.web.services.busines.BookComplexService;
 import com.tms.web.services.busines.ParseFB2BookService;
 import com.tms.web.services.busines.UploadBookService;
@@ -108,8 +109,9 @@ public class UploadBookServiceImpl implements UploadBookService {
             }else {
                 log.warn("Fail parse fb2 book to Book.class");
             }
-        } catch (ParserConfigurationException | IOException | SAXException e) {
+        } catch (ParserConfigurationException | IOException | SAXException | NullPointerException e) {
             log.fatal(e.getMessage());
+            throw new UploadFileException(e.getMessage());
         }
         return book;
     }

@@ -12,4 +12,5 @@ public interface AuthorService {
     public Author save(Author author);
     public AuthorInfo getAuthorInfo(Long id);
     public List<Author> findByFirstNameAndSecName(String firstName, String secName);
+    public Author findFirstByFirstNameAndSecName(String firstName, String secName);
 }

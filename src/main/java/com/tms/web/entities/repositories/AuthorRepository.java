@@ -10,6 +10,7 @@ public interface AuthorRepository extends JpaRepository<Author,Long> {
 
     public List<AuthorInfo> findAllByFirstNameContaining(String name);
     public AuthorInfo getAuthorById(Long id);
-    List<Author> findByFirstNameOrSecNameContaining(String search1, String search2);
+    List<Author> findByFirstNameOrSecNameContaining(String searchFirstNameText, String searchSecNameText);
     public List<Author> findByFirstNameAndSecName(String firstName,String SecName);
+    public Author findFirstByFirstNameAndSecName(String firstName,String SecName);
 }

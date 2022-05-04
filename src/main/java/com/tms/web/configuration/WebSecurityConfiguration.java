@@ -28,25 +28,11 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .and()
                 .logout().permitAll()
                 .logoutSuccessUrl("/home");
-//                .and()
-//                .exceptionHandling().accessDeniedHandler(authenticationExceptionHandler());
     }
-
-//    @Bean
-//    public AuthenticationExceptionHandler authenticationExceptionHandler(){
-//        return new AuthenticationExceptionHandler();
-//    }
-
-//    @Bean
-//    @Primary
-//    public AuthenticationProvider authProvider(){
-//        return new WebSecurityAuthProvider();
-//    }
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.userDetailsService(userDetailsService()).passwordEncoder(passwordEncoder());
-//        auth.authenticationProvider(authProvider());
     }
 
     @Bean

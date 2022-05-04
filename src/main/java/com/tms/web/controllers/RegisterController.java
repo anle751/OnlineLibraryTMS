@@ -36,9 +36,7 @@ public class RegisterController {
     public String save(@Valid User user, BindingResult bindingResult, Model model) {
         List<FieldError> fieldErrors = bindingResult.getFieldErrors();
         if (fieldErrors.size() != 0) {
-            for (FieldError fieldError : fieldErrors) {
-                model.addAttribute(fieldError.getField(), fieldError.getDefaultMessage());
-            }
+            fieldErrors.forEach(x->model.addAttribute(x.getField(),x.getDefaultMessage()));
             return "register";
         } else {
             User byUsername = userService.findByUsername(user.getUsername());

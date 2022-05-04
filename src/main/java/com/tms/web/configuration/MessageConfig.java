@@ -1,6 +1,6 @@
 package com.tms.web.configuration;
 
-import com.tms.web.handlers.LogInterceptor;
+
 import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -18,7 +18,6 @@ public class MessageConfig implements WebMvcConfigurer {
 
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
-        registry.addInterceptor(new LogInterceptor());
         registry.addInterceptor(localeChangeInterceptor());
     }
 

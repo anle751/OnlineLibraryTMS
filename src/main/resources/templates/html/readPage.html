@@ -31,7 +31,7 @@
                         <div class="d-grid gap-4 d-md-flex justify-content-md-center mx-auto">
 
                             <th:block th:if="${hasPrevChapter}">
-                                    <form action="/library/read/prev" method="post">
+                                    <form action="/library/read/false" method="post">
                                         <input type="hidden" name="chapterId" th:value="${chapter.id}">
                                         <input type="hidden" name="bookId" th:value="${book.id}">
                                         <button type="submit" class="btn btn-info w-100 m-2"  th:text="#{label.readPage.prevText}">before
@@ -41,7 +41,7 @@
 
 
                                 <th:block th:if="${hasNextChapter}">
-                                    <form action="/library/read/next" method="post">
+                                    <form action="/library/read/true" method="post">
                                         <input type="hidden" name="chapterId" th:value="${chapter.id}">
                                         <input type="hidden" name="bookId" th:value="${book.id}">
                                         <button type="submit" class="btn btn-info w-100 m-2"  th:text="#{label.readPage.nextText}">next

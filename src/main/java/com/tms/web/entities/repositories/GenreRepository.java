@@ -9,8 +9,6 @@ import java.util.List;
 
 public interface GenreRepository extends JpaRepository<Genre,Long> {
 
-
-    @Query("select o from Genre o where o.id in :ids" )
-    public List<Genre> findByIds(@Param("ids") List<Long> genreIds);
+    public List<Genre> findByIdIn(List<Long> ids);
     public List<Genre> findByName(String name);
 }
