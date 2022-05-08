@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml"
+>
+<head>
+    <meta charset="UTF-8">
+    <title>account</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
+          rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
+          crossorigin="anonymous">
+</head>
+<body>
+
+<div th:replace="fragments/navBar :: navBar">
+</div>
+
+<div class="container border">
+    <div class="accordion accordion-flush" id="accordionFlushExample">
+        <div class="row justify-content-start p-2">
+            <div class="col-2 mx-start border">
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="flush-headingInfo">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                data-bs-target="#flush-collapseOne" aria-expanded="false"
+                                aria-controls="flush-collapseOne" th:text="#{label.userAccount.info}">
+                            Info
+                        </button>
+                    </h2>
+
+                    <h2 class="accordion-header" id="flush-headingUserLibrary">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                data-bs-target="#flush-collapseThree" aria-expanded="false"
+                                aria-controls="flush-collapseThree" th:text="#{label.userAccount.userLibrary}">
+                            User library
+                        </button>
+                    </h2>
+                    <th:block th:if="${isAuthor}">
+
+                        <h2 class="accordion-header" id="flush-headingPersonalLibrary">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                    data-bs-target="#flush-collapseFive" aria-expanded="false"
+                                    aria-controls="flush-collapseFive" th:text="#{label.userAccount.personBooks}">
+                                Personal library
+                            </button>
+                        </h2>
+                    </th:block>
+                    <div sec:authorize="hasRole('ADMIN')">
+                        <h2 class="accordion-header" id="flush-headingAuthorFunction">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                    data-bs-target="#flush-collapseFour" aria-expanded="false"
+                                    aria-controls="flush-collapseFour" th:text="#{label.userAccount.adminFunctions}">
+                                Author function
+                            </button>
+                        </h2>
+                    </div>
+
+                </div>
+            </div>
+            <div class="col-10 mx-start border">
+                <div class="accordion-item">
+
+                    <div id="flush-collapseOne" class="accordion-collapse collapse" aria-labelledby="flush-headingInfo"
+                         data-bs-parent="#accordionFlushExample">
+                        <div class="accordion-body">
+                            <p class="text-sm-start"
+                               th:text="#{label.userAccount.info.loginText}+' '+ ${user.username}">login</p>
+                            <p class="text-sm-start"
+                               th:text="#{label.userAccount.info.nickNameText}+' '+${user.nickName}">nickName</p>
+                            <p>
+                                <button class="btn btn-primary" type="button" data-bs-toggle="collapse"
+                                        data-bs-target="#collapseNickNane" aria-expanded="false"
+                                        aria-controls="collapseExample"
+                                        th:text="#{label.userAccount.setting.changeNickname}">
+                                    signUpAsAnAuthor
+                                </button>
+                            </p>
+                            <div class="collapse" id="collapseNickNane">
+                                <form method="post" action="/userAccount/changeNickName">
+                                    <div class="card card-body">
+                                        <div class="input-group mb-3">
+                                        <span class="input-group-text w-25" id="inputGroupSelectnickName"
+                                              th:text="#{label.loginPage.nickNameText}">Login:</span>
+                                            <input name="newNickName" type="text" class="form-control w-75"
+                                                   placeholder=""
+                                                   th:placeholder="#{label.loginPage.nickNamePlaceholder}"
+                                                   aria-label="Username" aria-describedby="basic-addon1">
+                                        </div>
+                                        <button class="btn btn-primary w-100 mt-1" type="submit"
+                                                th:text="#{label.userAccount.setting.changeNickname}">register
+                                        </button>
+                                    </div>
+                                </form>
+                            </div>
+
+                            <p>
+                                <button class="btn btn-primary" type="button" data-bs-toggle="collapse"
+                                        data-bs-target="#collapsePass" aria-expanded="false"
+                                        aria-controls="collapseExample"
+                                        th:text="#{label.userAccount.setting.changePasswordText}">
+                                    signUpAsAnAuthor
+                                </button>
+                            </p>
+                            <div class="collapse" id="collapsePass">
+                                <form method="post" action="/userAccount/changePass">
+                                    <div class="card card-body">
+                                        <div class="input-group mb-3">
+                                        <span class="input-group-text w-25" id="inputGroupSelectOldPass"
+                                              th:text="#{label.userAccount.info.oldPass}">old:</span>
+                                            <input name="oldPass" type="password" class="form-control w-75"
+                                                   placeholder=""
+                                                   th:placeholder="#{label.userAccount.info.oldPassPlaceholder}"
+                                                   aria-label="Username" aria-describedby="basic-addon1">
+                                        </div>
+                                        <div class="input-group mb-3">
+                                        <span class="input-group-text w-25" id="inputGroupSelectNewPass"
+                                              th:text="#{label.userAccount.info.newPass}">new:</span>
+                                            <input name="newPass" type="password" class="form-control w-75"
+                                                   placeholder=""
+                                                   th:placeholder="#{label.userAccount.info.newPassPlaceholder}"
+                                                   aria-label="Username" aria-describedby="basic-addon1">
+                                        </div>
+                                        <button class="btn btn-primary w-100 mt-1" type="submit"
+                                                th:text="#{label.userAccount.info.changePassButton}">change
+                                        </button>
+                                    </div>
+                                </form>
+                            </div>
+
+
+
+                            <th:block th:if="${isAuthor}">
+                                <p class="text-sm-start"
+                                   th:text="#{label.userAccount.info.authorAlias}+' '+${user.author.firstName}+' '+${user.author.secName}">
+                                    authorInfo</p>
+                            </th:block>
+                            <th:block th:if="${!isAuthor}">
+                                <p>
+                                    <button class="btn btn-primary" type="button" data-bs-toggle="collapse"
+                                            data-bs-target="#collapseExample" aria-expanded="false"
+                                            aria-controls="collapseExample"
+                                            th:text="#{label.userAccount.info.signUpAsAnAuthor}">
+                                        signUpAsAnAuthor
+                                    </button>
+                                </p>
+                                <div class="collapse" id="collapseExample">
+                                    <form method="post" action="/userAccount/registerAuthor">
+                                        <div class="card card-body">
+                                            <div class="input-group mb-3">
+                                        <span class="input-group-text w-25" id="inputGroupSelect02"
+                                              th:text="#{label.userAcoount.info.authorFirstName}">Login:</span>
+                                                <input name="firstName" type="text" class="form-control w-75"
+                                                       placeholder=""
+                                                       th:placeholder="#{label.userAcoount.info.authorFirstNamePlaceholder}"
+                                                       aria-label="Username" aria-describedby="basic-addon1">
+                                            </div>
+                                            <div class="input-group mb-3">
+                                        <span class="input-group-text w-25" id="inputGroupSelect03"
+                                              th:text="#{label.userAcoount.info.authorSecName}">Login:</span>
+                                                <input name="secName" type="text" class="form-control w-75"
+                                                       placeholder=""
+                                                       th:placeholder="#{label.userAcoount.info.authorSecNamePlaceholder}"
+                                                       aria-label="Username" aria-describedby="basic-addon1">
+                                            </div>
+                                            <div class="input-group">
+                                                <span class="input-group-text"
+                                                      th:text="#{label.userAcoount.info.authorDescription}">With textarea</span>
+                                                <textarea class="form-control" name="description"
+                                                          aria-label="With textarea"
+                                                          th:placeholder="#{label.userAcoount.info.authorDescriptionPlaceholder}"></textarea>
+                                            </div>
+                                            <button class="btn btn-primary w-100 mt-1" type="submit"
+                                                    th:text="#{label.loginPage.registrationButtonText}">register
+                                            </button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </th:block>
+                        </div>
+                    </div>
+
+                    <div id="flush-collapseTwo" class="accordion-collapse collapse"
+                         aria-labelledby="flush-headingSetting" data-bs-parent="#accordionFlushExample">
+                        <div class="accordion-body">
+                            <p><a href="#" class="pe-none disabled" tabindex="-1" aria-disabled="true"
+                                  th:text="#{label.userAccount.setting.changePasswordText}">changePasswordText</a>
+                            <p><a href="#" class="pe-none disabled" tabindex="-1" aria-disabled="true"
+                                  th:text="#{label.userAccount.setting.changeNickname}">changeNickname</a>
+                        </div>
+                    </div>
+
+                    <div id="flush-collapseThree" class="accordion-collapse collapse"
+                         aria-labelledby="flush-headingUserLibrary" data-bs-parent="#accordionFlushExample">
+                        <div class="accordion-body">
+                            <th:block th:each="userLibrary,state :${user.userLibrary}">
+                                <div class="col-12">
+                                    <div class="card p-2 m-2 border-primary" style="width: 100%;">
+
+                                        <div class="row no-gutters">
+                                            <div class="col-md-4">
+                                                <img src="https://www.ukrgate.com/eng/wp-content/uploads/2021/02/The-Ukrainian-Book-Institute-Purchases-380.9-Thousand-Books-for-Public-Libraries1.jpeg"
+                                                     class="card-img" alt="...">
+                                            </div>
+                                            <div class="col-md-8">
+                                                <div class="card-body">
+                                                    <h5 class="card-title"
+                                                        th:text="#{label.cardBookTittle} +' '+ ${userLibrary.book.name}">
+                                                        title</h5>
+                                                    <p class="card-text">
+                                                        <span th:text="#{label.cardBookGenre}"></span>
+                                                        <th:block th:each="genreB,state :${userLibrary.book.genres}">
+                                                            <span th:text="${genreB.name} + ${state.last? '.' : ','}"></span>
+                                                        </th:block>
+                                                    </p>
+                                                    <p class="card-text"
+                                                       th:text="#{label.cardBookAuthor} +' '+ ${userLibrary.book.author.firstName} +' '+ ${userLibrary.book.author.secName}"></p>
+                                                    <p>
+                                                        <button class="btn btn-primary" type="button"
+                                                                data-bs-toggle="collapse"
+                                                                data-bs-target="#collapseDescription"
+                                                                th:attr="data-bs-target='#collapseDescriptionUl'+${userLibrary.book.id}"
+                                                                aria-expanded="false" aria-controls="collapseExample"
+                                                                th:text="#{label.cardBookDescriptionButtonText}">
+                                                            Description
+                                                        </button>
+                                                    </p>
+                                                    <form action="/library/read" method="post">
+                                                        <input type="hidden" name="bookId"
+                                                               th:value="${userLibrary.book.id}">
+                                                        <button type="submit" class="btn btn-info mb-2"
+                                                                th:text="#{label.cardReadButton}">read
+                                                        </button>
+                                                    </form>
+                                                    <div class="collapse" id="collapseDescription"
+                                                         th:attr="id='collapseDescriptionUl'+${userLibrary.book.id}">
+                                                        <div class="card card-body">
+                                                            <span th:text="${userLibrary.book.description}"></span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </th:block>
+                        </div>
+                    </div>
+
+                    <div id="flush-collapseFour" class="accordion-collapse collapse"
+                         aria-labelledby="flush-headingAuthorFunction" data-bs-parent="#accordionFlushExample">
+                        <div class="accordion-body">
+                            <form action="/userAccount/adminFunctional" method="post" enctype="multipart/form-data">
+                                <p class="text-start" th:text="#{label.userAccount.adminFunctions.text.uploadBook}">upload book</p>
+                                <div class="input-group">
+                                    <label class="input-group-text" for="inputGroupFile04" >FB2</label>
+                                    <input type="file" class="form-control" name="file" id="inputGroupFile04" aria-describedby="inputGroupFileAddon04" aria-label="Upload">
+                                    <button class="btn btn-outline-secondary" type="submit" id="inputGroupFileAddon04" th:text="#{label.userAccount.adminFunctions.upload}">Button</button>
+                                </div>
+                            </form>
+
+                        </div>
+                    </div>
+
+                    <div id="flush-collapseFive" class="accordion-collapse collapse"
+                         aria-labelledby="flush-headingPersonalLibrary" data-bs-parent="#accordionFlushExample">
+                        <div class="accordion-body">
+
+                            <div th:if="${isAuthor}">
+                                <th:block th:each="authorBook,state :${user.author.books}">
+                                    <div class="col-12">
+                                        <div class="card p-2 m-2 border-primary" style="width: 100%;">
+
+                                            <div class="row no-gutters">
+                                                <div class="col-md-4">
+                                                    <img src="https://www.ukrgate.com/eng/wp-content/uploads/2021/02/The-Ukrainian-Book-Institute-Purchases-380.9-Thousand-Books-for-Public-Libraries1.jpeg"
+                                                         class="card-img" alt="...">
+                                                </div>
+                                                <div class="col-md-8">
+                                                    <div class="card-body">
+                                                        <h5 class="card-title"
+                                                            th:text="#{label.cardBookTittle} +' '+ ${authorBook.name}">
+                                                            title</h5>
+                                                        <p class="card-text">
+                                                            <span th:text="#{label.cardBookGenre}"></span>
+                                                            <th:block th:each="genreB,state :${authorBook.genres}">
+                                                                <span th:text="${genreB.name} + ${state.last? '.' : ','}"></span>
+                                                            </th:block>
+                                                        </p>
+                                                        <p class="card-text"
+                                                           th:text="#{label.cardBookAuthor} +' '+ ${authorBook.author.firstName} +' '+ ${authorBook.author.secName}"></p>
+                                                        <p>
+                                                            <button class="btn btn-primary" type="button"
+                                                                    data-bs-toggle="collapse"
+                                                                    data-bs-target="#collapseBookAuthorDescription"
+                                                                    th:attr="data-bs-target='#collapseBookAuthorDescription'+${authorBook.id}"
+                                                                    aria-expanded="false"
+                                                                    aria-controls="collapseExample"
+                                                                    th:text="#{label.cardBookDescriptionButtonText}">
+                                                                Description
+                                                            </button>
+                                                        </p>
+                                                        <div class="collapse" id="collapseBookAuthorDescription"
+                                                             th:attr="id='collapseBookAuthorDescription'+${authorBook.id}">
+                                                            <div class="card card-body">
+                                                                <span th:text="${authorBook.description}"></span>
+                                                            </div>
+                                                        </div>
+
+                                                        <ul class="list-group list-group-horizontal ">
+                                                            <li class="list-group-item border-0">
+                                                                <form action="/library/editBook" method="post">
+                                                                    <input type="hidden" name="bookId"
+                                                                           th:value="${authorBook.id}">
+                                                                    <button type="submit" class="btn btn-info mb-2"
+                                                                            th:text="#{label.userAccoount.personalLibrary.book.editBookButton}">
+                                                                        edit
+                                                                    </button>
+                                                                </form>
+                                                            </li>
+
+                                                            <div th:if="${authorBook.chapterList.size()!=0}">
+                                                                <li class="list-group-item border-0">
+                                                                    <form action="/library/read" method="post">
+                                                                        <input type="hidden" name="bookId"
+                                                                               th:value="${authorBook.id}">
+                                                                        <button type="submit" class="btn btn-info mb-2"
+                                                                                th:text="#{label.cardReadButton}">read
+                                                                        </button>
+                                                                    </form>
+                                                                </li>
+                                                            </div>
+
+                                                        </ul>
+
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </th:block>
+
+                            </div>
+
+                            <form action="/library/createBook" method="get">
+                                <button type="submit" class="btn btn-info mb-2 w-100"
+                                        th:text="#{label.userAcoount.pesronalLibrary.buttonAddNewBookText}">add new book
+                                </button>
+                            </form>
+
+
+                        </div>
+                    </div>
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div th:if="${#request.getAttribute('info')!=null}">
+    <div class="container">
+        <div class="row p-1">
+            <div class="col-12 mx-auto">
+                <div class="alert alert-info" role="alert" th:text="${#request.getAttribute('info')}">
+                    alert
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+        crossorigin="anonymous"></script>
+</body>
+</html>

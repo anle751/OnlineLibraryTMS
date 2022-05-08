@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml"
+>
+<head>
+    <meta charset="UTF-8">
+    <title>login</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
+          rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
+          crossorigin="anonymous">
+</head>
+<body>
+
+<div th:replace="fragments/navBar :: navBar">
+</div>
+
+<div class="container">
+    <div class="row   align-items-center justify-content-md-center m-4" style="height: 100%">
+        <div class=" col-auto ">
+            <div class="card" style="width: 25rem;">
+
+                <img src="https://www.nicepng.com/png/detail/918-9180881_user-registration-icon-png-enable-user-icon-png.png"
+                     class="card-img-top w-100"
+                     alt="...">
+                <div class="card-body mx-auto w-100" >
+                    <form action="/login" method="post">
+                        <div class="input-group mb-3">
+                            <span class="input-group-text w-25" id="inputGroupSelect01" th:text="#{label.loginPage.loginText}">Login:</span>
+                            <input name="username" type="text" class="form-control w-75"
+                                   placeholder="" th:placeholder="#{label.loginPage.loginPlaceholder}"
+                            aria-label="Username" aria-describedby="basic-addon1">
+                        </div>
+                        <div class="input-group mb-3">
+                            <span class="input-group-text w-25" id="inputGroupSelect02" th:text="#{label.loginPage.passwordText}">Password:</span>
+                            <input name="password" type="password" class="form-control w-75"
+                                   placeholder="" th:placeholder="#{label.loginPage.passwordPlaceholder}"
+                                   aria-label="Username" aria-describedby="basic-addon1">
+                        </div>
+
+                        <button class="btn btn-primary w-100 mt-1" type="submit" th:text="#{label.loginPage.loginButtonText}">login</button>
+                    </form>
+
+                    <a href="/register" class="btn btn-secondary w-100 mt-1" th:text="#{label.loginPage.registrationButtonText}">register</a>
+                    <a href="/home" class="btn btn-secondary w-100 mt-1" th:text="#{label.loginPage.homePageButtonText}">home</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+        crossorigin="anonymous"></script>
+
+</body>
+</html>

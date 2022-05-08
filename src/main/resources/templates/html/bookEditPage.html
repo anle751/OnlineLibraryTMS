@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+>
+<head>
+    <meta charset="UTF-8">
+    <title>edit book</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
+          rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
+          crossorigin="anonymous">
+</head>
+<body>
+
+<div class="container">
+    <div class="row border  align-items-center justify-content-md-center m-1" style="height: 100%">
+        <div class=" col-4 border mx-auto border " style="height: 200px">
+            <div class="mx-auto m-2 " style="width: 200px; ">
+                <img src="https://www.adazing.com/wp-content/uploads/2019/02/open-book-clipart-03.png"
+                     class="img-thumbnail "
+                     style="height: 180px"
+                     alt="https://www.adazing.com/wp-content/uploads/2019/02/open-book-clipart-03.png">
+            </div>
+
+
+        </div>
+        <div class=" col-4 border" style="height: 200px">
+
+        </div>
+
+        <div class=" col-4 mx-auto border "style="height: 200px">
+            <form action="/library/editBook/makeFinal" method="post">
+                <button class="btn btn-primary w-100 m-1" type="submit"
+                        th:text="#{label.userAccoount.bookEditPage.finalBookButtonText}" disabled>makeFinal
+                </button>
+            </form>
+            <form action="/library/editBook/makeHidden" method="post">
+                <button class="btn btn-primary w-100 m-1" type="submit"
+                        th:text="#{label.userAccoount.bookEditPage.hideBookButtonText}" disabled>makeHidden
+                </button>
+            </form>
+            <form action="/library/editBook/delete" method="post">
+                <button class="btn btn-danger w-100 m-1" type="submit"
+                        th:text="#{label.userAccoount.bookEditPage.deleteBook}" disabled>delete
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <div class="row  border m-1" style="height: 100%">
+        <div class="col-12 mx-auto">
+            <p class="text-sm-start"
+               th:text="#{label.userAccoount.bookEditPage.chaptersColumn}">Chapters</p>
+        </div>
+
+    </div>
+    <div class="row  border m-1">
+        <div class="col-2 mx-auto border">
+            <p class="text-sm-center" th:text="'#'"></p>
+        </div>
+        <div class="col-10  border">
+            <p class="text-sm-start align-middle"
+               th:text="#{label.userAccoount.bookEditPage.titleColumn}">Title</p>
+        </div>
+    </div>
+    <div th:if="${book.chapterList!=null}">
+        <th:block th:each="chapter,state :${book.chapterList}">
+            <div class="row  border m-1">
+                <div class="col-2 mx-auto border">
+                    <p class="text-sm-center" th:text="${state.count}">count</p>
+                </div>
+                <div class="col-10  border">
+                    <p class="text-sm-start align-middle"
+                       th:text="${chapter.chapterName}">Title</p>
+                </div>
+            </div>
+        </th:block>
+    </div>
+    <div class="row  border m-1">
+        <div class="col-12 mx-auto border">
+            <form action="/library/editBook/addNewChapter" method="post">
+                <input type="hidden" name="bookId" value="" th:value="${book.id}">
+                <button class="btn btn btn-success w-100 m-1" type="submit"
+                        th:text="#{label.userAccoount.bookEditPage.addNewChapterButton}">Add new chapter
+                </button>
+            </form>
+            <a href="/userAccount" class="btn btn-secondary w-100 m-1"
+               th:text="#{label.createBookPage.backButtonText}">home</a>
+        </div>
+
+    </div>
+
+
+</div>
+<div th:if="${#request.getAttribute('info')!=null}">
+    <div class="container">
+        <div class="row p-1">
+            <div class="col-12 mx-auto">
+                <div class="alert alert-info" role="alert" th:text="${#request.getAttribute('info')}">
+                    alert
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+        crossorigin="anonymous"></script>
+
+</body>
+</html>
